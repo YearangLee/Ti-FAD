@@ -1,0 +1,14 @@
+numpy==1.23.0 
+tensorflow 
+tensorboard 
+h5py 
+pandas 
+joblib 
+matplotlib 
+einops 
+timm 
+ftfy 
+seaborn 
+thop
+transformers
+ipdb
