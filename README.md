@@ -2,6 +2,7 @@
 
 This repository contains the official implementation code for the NeurIPS 2024 paper "Text-Infused Attention and Foreground-Aware Modeling for Zero-Shot Temporal Action Detection".
 
+![Overview](assets/overview.png)
 
 # Installation
 1. Install the required packages
