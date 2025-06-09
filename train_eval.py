@@ -237,6 +237,8 @@ if __name__ == '__main__':
                         help='split number')
     parser.add_argument('--output', default='', type=str,
                         help='name of exp folder (default: none)')
+    parser.add_argument('--log', default='', type=str, metavar='PATH',
+                        help='path to a result (default: none)')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to a checkpoint (default: none)')
     parser.add_argument('--eval', action='store_true', help='eval')
