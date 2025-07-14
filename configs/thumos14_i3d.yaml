@@ -1,0 +1,65 @@
+dataset_name: thumos
+train_split: ['validation']
+val_split: ['test']
+dataset: {
+  json_file: ./data/thumos/annotations/thumos14.json,
+  feat_folder: ./data/thumos14/i3d_features,
+  subset_file: 'splits/train_{r1}_test_{r2}/THUMOS14/{mode}/split_{r3}.list',
+  file_prefix: ~,
+  file_ext: .npy,
+  input_dim: 2048,
+  feat_stride: 4,
+  num_frames: 16,
+  # serve as data augmentation
+  trunc_thresh: 0.5,
+  crop_ratio: [0.9, 1.0],
+  max_seq_len: 2304, 
+  data_split: 50,
+}
+
+model: {
+  fpn_type: identity,
+  max_buffer_len_factor: 6.0, 
+  n_mha_win_size: 19,
+  fpn_with_ln: true,
+  embd_dim: 256,   
+  embd_with_ln: True,
+  fpn_dim: 256,
+  fpn_start_level: 0,
+  head_dim: 256,
+  topk_ratio: 0.01,
+  threshold: 100,
+  text_model: "openai/clip-vit-base-patch16"
+}
+opt: {
+  learning_rate: 0.0001, 
+  epochs: 16,
+  weight_decay: 0.01,
+  schedule_type: multistep,
+  schedule_gamma: 0.1,
+  schedule_steps: [10], 
+  prior_prob: 0.3,
+  num_pred: 300,
+}
+loader: {
+  batch_size: 2
+}
+
+train_cfg: {
+  init_loss_norm: 100, 
+  clip_grad_l2norm: 0.1,  
+  cls_prior_prob: 0.01,
+  center_sample: radius,
+  center_sample_radius: 1.5,
+}
+
+test_cfg: {
+  voting_thresh: 0.7,  
+  pre_nms_topk: 2000,   
+  max_seg_num: 2000,
+  min_score: 0.001, 
+  # score fusion
+  ext_score_file: ./data/thumos/annotations/thumos14_cls_scores.json,
+}
+
+output_folder: ./ckpt/
